@@ -1,0 +1,13 @@
+.App-Button-default {
+  border-color: transparent;
+  border-radius: 12px;
+  width: max-content;
+  margin: 1%;
+  padding: 0.4% 0.4%;
+  background-color: rgb(14, 199, 227);
+}
+
+.App-Button-default:hover {
+  background-color: rgba(14, 199, 227, 0.85);
+  border-color: rgb(14, 199, 227);
+}
