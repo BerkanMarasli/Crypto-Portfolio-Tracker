@@ -1,0 +1,15 @@
+.App-CryptoInfo {
+  display: flex;
+  width: 90%;
+  justify-content: space-evenly;
+  border: solid 2px rgb(14, 199, 227);
+  border-radius: 50px;
+  margin: 0px;
+  padding: 0px;
+  align-items: center;
+}
+
+#App-CryptoInfo-logo {
+  height: 32px;
+  width: 32px;
+}
