@@ -7,6 +7,7 @@ export default function App() {
   const [isClickedViewAllCrypto, setIsClickedViewAllCrypto] = useState(false);
   const [isClickedViewBitcoin, setIsClickedViewBitcoin] = useState(false);
   const [bitcoinData, setBitcoinData] = useState({});
+  const [allCryptoData, setAllCryptoData] = useState([]);
 
   return (
     <div className="App">
@@ -22,11 +23,11 @@ export default function App() {
         nameOfButton="View all CRYPTOCURRENCIES"
         handleClick={handleViewAllCryptoClick}
         setIsClickedState={setIsClickedViewAllCrypto}
+        setData={setAllCryptoData}
       />
+      <br />
       {isClickedViewBitcoin === true ? <CryptoInfo data={bitcoinData} /> : null}
-      {isClickedViewAllCrypto === true ? (
-        <h1>View All Button Clicked</h1>
-      ) : null}
+      {isClickedViewAllCrypto === true ? allCryptoData : null}
     </div>
   );
 }
@@ -39,8 +40,21 @@ async function handleViewBitcoinClick(setIsClickedViewBitcoin, setBitcoinData) {
   setBitcoinData(bitcoinData);
 }
 
-function handleViewAllCryptoClick(setIsClickedViewAllCrypto) {
+async function handleViewAllCryptoClick(
+  setIsClickedViewAllCrypto,
+  setAllCryptoData
+) {
   setIsClickedViewAllCrypto(true);
+  const URL = "https://api.coincap.io/v2/assets";
+  const data = await getDataFromCoinCapAPI(URL);
+  const allCryptoData = data.data;
+  // console.log("handleViewAllClick data: ", allCryptoData);
+  // allCryptoData.forEach((ele) => console.log(ele));
+  const allCryptoDataDisplay = allCryptoData.map((cryptoInfo) => {
+    return <p key={cryptoInfo.id}>{cryptoInfo.name}</p>;
+  });
+  console.log("Setting state: ", allCryptoDataDisplay);
+  setAllCryptoData(allCryptoDataDisplay);
 }
 
 async function getDataFromCoinCapAPI(url) {
