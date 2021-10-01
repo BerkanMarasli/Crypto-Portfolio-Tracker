@@ -1,6 +1,7 @@
 // https://docs.coincap.io/ => main crypto information
 // https://cryptoicons.org/ => crypto logos
 // ^^ https://github.com/spothq/cryptocurrency-icons => crypto logos
+// ^^ https://cryptologos.cc/
 
 // import BITCOINLOGO from "./cryptoLogos/icon/btc.png"
 import "./App.css"
