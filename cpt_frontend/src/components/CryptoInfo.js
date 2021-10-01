@@ -1,43 +1,36 @@
 import React from "react"
 import "./CryptoInfo.css"
-// import { useState, useEffect } from "react"
 
 export default function CryptoInfo(props) {
-  // const {
-  //   id,
-  //   rank,
-  //   ticker,
-  //   name,
-  //   supply,
-  //   maxSupply,
-  //   marketCapUsd,
-  //   volumeUsd24Hr,
-  //   priceUsd,
-  //   changePercent24Hr,
-  //   vwap24Hr,
-  //   explorer,
-  // } = props.data
+  // props.data contains {id, rank, symbol, name, supply, maxSupply, marketCapUsd, volumeUsd24Hr, priceUsd, changePercent24Hr, vwap24Hr, explorer}
+  const { symbol, name, marketCapUsd, volumeUsd24Hr, priceUsd, changePercent24Hr } = props.data
 
   return (
     <div className="App-CryptoInfo">
-      <img
-        id="App-CryptoInfo-logo"
-        src={require("../cryptoLogos/icon/btc.png").default}
-        alt={`${props.data.symbol} logo`}
-      />
-      <p>
-        {props.data.name} ({props.data.symbol})
-      </p>
-      <p>${twoDecimalPlaces(props.data.priceUsd)}</p>
-      <p
-        style={{
-          color: twoDecimalPlaces(props.data.changePercent24Hr) >= 0 ? "#25f716" : "#ff1717",
-        }}
-      >
-        {twoDecimalPlaces(props.data.changePercent24Hr)}%
-      </p>
-      <p>${numAsMillion(props.data.volumeUsd24Hr)}m</p>
-      <p>${numAsMillion(props.data.marketCapUsd)}m</p>
+      {symbol && (
+        <img
+          id="App-CryptoInfo-logo"
+          src={require(`../cryptoLogos/icon/${symbol.toLowerCase()}.png`).default}
+          alt={`${symbol} logo`}
+        />
+      )}
+      {name && (
+        <p>
+          {name} ({symbol})
+        </p>
+      )}
+      {priceUsd && <p>${twoDecimalPlaces(priceUsd)}</p>}
+      {changePercent24Hr && (
+        <p
+          style={{
+            color: twoDecimalPlaces(changePercent24Hr) >= 0 ? "#25f716" : "#ff1717",
+          }}
+        >
+          {twoDecimalPlaces(changePercent24Hr)}%
+        </p>
+      )}
+      {volumeUsd24Hr && <p>${numAsMillion(volumeUsd24Hr)}m</p>}
+      {marketCapUsd && <p>${numAsMillion(marketCapUsd)}m</p>}
     </div>
   )
 }
