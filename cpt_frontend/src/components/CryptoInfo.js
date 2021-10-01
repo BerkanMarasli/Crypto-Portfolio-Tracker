@@ -20,7 +20,11 @@ export default function CryptoInfo(props) {
 
   return (
     <div className="App-CryptoInfo">
-      <img id="App-CryptoInfo-logo" src={props.logo} alt={`${props.data.symbol} logo`} />
+      <img
+        id="App-CryptoInfo-logo"
+        src={require("../cryptoLogos/icon/btc.png").default}
+        alt={`${props.data.symbol} logo`}
+      />
       <p>
         {props.data.name} ({props.data.symbol})
       </p>
@@ -30,7 +34,7 @@ export default function CryptoInfo(props) {
           color: twoDecimalPlaces(props.data.changePercent24Hr) >= 0 ? "#25f716" : "#ff1717",
         }}
       >
-        {twoDecimalPlaces(props.data.changePercent24Hr)}
+        {twoDecimalPlaces(props.data.changePercent24Hr)}%
       </p>
       <p>${numAsMillion(props.data.volumeUsd24Hr)}m</p>
       <p>${numAsMillion(props.data.marketCapUsd)}m</p>

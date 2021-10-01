@@ -1,6 +1,8 @@
 // https://docs.coincap.io/ => main crypto information
 // https://cryptoicons.org/ => crypto logos
+// ^^ https://github.com/spothq/cryptocurrency-icons => crypto logos
 
+import BITCOINLOGO from "./cryptoLogos/icon/btc.png"
 import "./App.css"
 import Button from "./components/Button"
 import { useState } from "react"
@@ -33,6 +35,7 @@ export default function App() {
       <br />
       {isClickedViewBitcoin === true ? <CryptoInfo data={bitcoinData} logo={bitcoinLogo} /> : null}
       {isClickedViewAllCrypto === true ? allCryptoData : null}
+      <img src={BITCOINLOGO} alt="IDK"></img>
     </div>
   )
 }
@@ -55,6 +58,10 @@ async function handleViewAllCryptoClick(setIsClickedViewAllCrypto, setAllCryptoD
   const allCryptoDataDisplay = allCryptoData.map(cryptoInfo => {
     return <p key={cryptoInfo.id}>{cryptoInfo.name}</p>
   })
+  // const allCryptoDataDisplay = allCryptoData.map(async (cryptoInfo) => {
+  //   const cryptoLogo = await getCryptoLogo(cryptoInfo.symbol)
+  //   return <CryptoInfo key={cryptoInfo.id} data={cryptoInfo} logo={cryptoLogo} />
+  // })
   setAllCryptoData(allCryptoDataDisplay)
 }
 
@@ -65,12 +72,15 @@ async function getDataFromCoinCapAPI(url) {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer 5d7f001c-d807-4046-bcca-dfe169fa1ca1",
-        "Access-Control-Allow-Headers": "Origin",
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS, PUT, PATCH",
+        "Access-Control-Allow-Headers":
+          "Origin, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
       },
     })
     return await response.json()
   } catch (error) {
+    console.log("COULDNT FETCH DATA")
     console.log(error)
   }
 }
@@ -78,14 +88,21 @@ async function getDataFromCoinCapAPI(url) {
 async function getCryptoLogo(cryptoTicker) {
   const ticker = cryptoTicker.toLowerCase()
   const url = `https://cryptoicons.org/api/icon/${ticker}/32`
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Access-Control-Allow-Headers": "Origin",
-      "Access-Control-Allow-Origin": "*",
-    },
-  })
-  const logo = await response.blob()
-  const logoUrl = URL.createObjectURL(logo)
-  return logoUrl
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS, PUT, PATCH",
+        "Access-Control-Allow-Headers":
+          "Origin, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+      },
+    })
+    const logo = await response.blob()
+    const logoUrl = URL.createObjectURL(logo)
+    return logoUrl
+  } catch (error) {
+    console.log("COULDNT FETCH LOGO")
+    console.log(error)
+  }
 }
