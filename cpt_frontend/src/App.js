@@ -47,20 +47,13 @@ async function handleViewBitcoinClick(setIsClickedViewBitcoin, setBitcoinData) {
   const data = await getDataFromCoinCapAPI(URL)
   const bitcoinData = data.data
   setBitcoinData(bitcoinData)
-  // const logo = await getCryptoLogo(bitcoinData.symbol)
-  // setBitcoinLogo(logo)
 }
 
 async function handleViewAllCryptoClick(setIsClickedViewAllCrypto, setAllCryptoData) {
   setIsClickedViewAllCrypto(true)
   const URL = "https://api.coincap.io/v2/assets"
   const data = await getDataFromCoinCapAPI(URL)
-  const allCryptoData = data.data.slice(0,30)
-  // const allCryptoData = data.data
-  console.log(allCryptoData)
-  // const allCryptoDataDisplay = allCryptoData.map(cryptoInfo => {
-  //   return <p key={cryptoInfo.id}>{cryptoInfo.name}</p>
-  // })
+  const allCryptoData = data.data
   const allCryptoDataDisplay = allCryptoData.map(cryptoInfo => {
     return <CryptoInfo key={cryptoInfo.id} data={cryptoInfo} />
   })
