@@ -22,9 +22,35 @@ export default function App() {
         setData={setAllCryptoData}
       />
       <br />
+      {isClickedViewAllCrypto === true ? (
+        <Button
+          nameOfButton="Refresh"
+          handleClick={handleRefreshClick}
+          setIsClickedState={setIsClickedViewAllCrypto}
+          setData={setAllCryptoData}
+        />
+      ) : null}
+      {isClickedViewAllCrypto === true ? (
+        <Button
+          nameOfButton="Minimise"
+          handleClick={handleMinimiseClick}
+          setIsClickedState={setIsClickedViewAllCrypto}
+          setData={setAllCryptoData}
+        />
+      ) : null}
+      <br />
       {isClickedViewAllCrypto === true ? allCryptoData : null}
     </div>
   )
+}
+
+function handleMinimiseClick(setIsClickedViewAllCrypto) {
+  setIsClickedViewAllCrypto(false)
+}
+
+function handleRefreshClick(setIsClickedViewAllCrypto, setAllCryptoData) {
+  setIsClickedViewAllCrypto(false)
+  handleViewAllCryptoClick(setIsClickedViewAllCrypto, setAllCryptoData)
 }
 
 async function handleViewAllCryptoClick(setIsClickedViewAllCrypto, setAllCryptoData) {

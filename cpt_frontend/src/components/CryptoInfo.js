@@ -10,7 +10,7 @@ export default function CryptoInfo(props) {
       {symbol && (
         <img
           id="App-CryptoInfo-logo"
-          src={require(`../cryptoLogos/icon/${symbol.toLowerCase()}.png`).default}
+          src={require(`../cryptoIcons/${symbol.toLowerCase()}.png`).default}
           alt={`${symbol} logo`}
         />
       )}
